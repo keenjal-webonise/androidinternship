@@ -11,4 +11,5 @@ package com.weboniselab.keenjal.java.assignment1;
         abchild.callme();
         abchild.normal();
     }
+
 }

@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i(TAG,"oncreate");
-        Log.i(TAG,"database");
 
         mydb = new MySQLiteHelper(this);
         etFirstName = (EditText) findViewById(R.id.etFirstName);

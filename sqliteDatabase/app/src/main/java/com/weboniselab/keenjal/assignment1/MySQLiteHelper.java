@@ -2,20 +2,22 @@ package com.weboniselab.keenjal.assignment1;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
 
-/**
- * Created by webonise on 16/5/16.
- */
+
 public class MySQLiteHelper extends SQLiteOpenHelper{
+
 
     public static final String DATABASE_NAME = "Student.db";
     public static final String TABLE_NAME = "student_table";
-    public static final String COL_1 = "FirstName";
-    public static final String COL_2 = "LastName";
-    public static final String COL_3 = "EmailID";
-    public static final String COL_4 = "Password";
+    public static final String ID = "_id";
+    public static final String FirstName = "FirstName";
+    public static final String LastName = "LastName";
+    public static final String EmailID = "EmailID";
+    public static final String Password = "Password";
 
 
     public MySQLiteHelper(Context context) {
@@ -25,24 +27,28 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
 
 
 
-    public boolean insertData(String firstName, String lastName, String emailID, String password) {
+    public long insertData(String firstName, String lastName, String emailID, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,firstName);
-        contentValues.put(COL_2,lastName);
-        contentValues.put(COL_3,emailID);
-        contentValues.put(COL_4,password);
-        long result = db.insert(TABLE_NAME, null ,contentValues);
-        if(result == -1)
-            return false;
-        else
-            return true;
+        contentValues.put(FirstName,firstName);
+        contentValues.put(LastName,lastName);
+        contentValues.put(EmailID,emailID);
+        contentValues.put(Password,password);
+        return db.insert(TABLE_NAME, null ,contentValues);
+
     }
+
+    public Cursor getRecordByID(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from " + TABLE_NAME + " where " + ID + " = " + "_id" ,null);
+        return res;
+    }
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table "  +  TABLE_NAME + "(FIRSTNAME TEXT, LASTNAME TEXT, EMAILID TEXT,PASSWORD TEXT)");
 
+        db.execSQL("create table "  +  TABLE_NAME + "(" + ID + " INTEGER PRIMARY KEY, " + FirstName + " TEXT, " + LastName + " TEXT, " + EmailID + " TEXT," + Password + " TEXT)");
     }
 
     @Override

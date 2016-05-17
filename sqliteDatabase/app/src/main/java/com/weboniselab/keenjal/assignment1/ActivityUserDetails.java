@@ -1,6 +1,7 @@
 package com.weboniselab.keenjal.assignment1;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,24 +25,35 @@ public class ActivityUserDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG,"oncreate");
+        Log.i(TAG, "oncreate");
         setContentView(R.layout.content_activity_user_details);
-      //  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
+
+        int id = getIntent().getIntExtra("id",0);
+        MySQLiteHelper mydb = new MySQLiteHelper(this);
+        Cursor cursor = mydb.getRecordByID(id);
+
+        if (cursor != null) {
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+                String fname = cursor.getString(cursor.getColumnIndex("FirstName"));
+                String lname = cursor.getString(cursor.getColumnIndex("LastName"));
+                String emailId = cursor.getString(cursor.getColumnIndex("EmailID"));
+                String password = cursor.getString(cursor.getColumnIndex("Password"));
 
 
-       Bundle bundle = getIntent().getExtras();
-        TextView tvFirstName = (TextView) findViewById(R.id.tvFirstName);
-        TextView tvLastName = (TextView) findViewById(R.id.tvLastName);
-        TextView tvEmailID = (TextView) findViewById(R.id.tvEmailID);
-        TextView tvPassword = (TextView) findViewById(R.id.tvPassword);
+                TextView tvFirstName = (TextView) findViewById(R.id.tvFirstName);
+                TextView tvLastName = (TextView) findViewById(R.id.tvLastName);
+                TextView tvEmailID = (TextView) findViewById(R.id.tvEmailID);
+                TextView tvPassword = (TextView) findViewById(R.id.tvPassword);
 
-        tvFirstName.setText(bundle.getString("FirstName"));
-        tvLastName.setText(bundle.getString("LastName"));
-        tvEmailID.setText(bundle.getString("EmailId"));
-        tvPassword.setText(bundle.getString("Password"));
-
+                tvFirstName.setText(fname);
+                tvLastName.setText(lname);
+                tvEmailID.setText(emailId);
+                tvPassword.setText(password);
+            }
+        }
     }
+
 
     @Override
     protected void onStart() {

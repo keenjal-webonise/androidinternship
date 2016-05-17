@@ -69,8 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
                     etEmailID.setError("Required....");
                     etEmailID.requestFocus();
-                    isValidEmail(emailID);
-                 //   isValidEmail(emailID);
+                    //isValidEmail(emailID);
 
                 }
                 else if (TextUtils.isEmpty(password))
@@ -99,14 +98,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public static boolean isValidEmail(String emailID) {
+   /*public static boolean isValidEmail(String emailID) {
         String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                 + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
         Pattern pattern = Pattern.compile(EMAIL_PATTERN);
         Matcher matcher = pattern.matcher(emailID);
         return matcher.matches();
-    }
+    }*/
     @Override
     protected void onStart() {
         super.onStart();

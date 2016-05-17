@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">alertDialogDemo</string>
+    <string name="hello_world">hello world</string>
+    <string name="menu_setting">settings</string>
+    <string name="dialog_message">welcome to alert dialog</string>
+    <string name="dialog_title">javatpoint alert dialog</string>
+</resources>

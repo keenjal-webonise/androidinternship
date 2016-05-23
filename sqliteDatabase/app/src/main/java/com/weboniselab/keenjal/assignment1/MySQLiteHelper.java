@@ -19,13 +19,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
     public static final String EmailID = "EmailID";
     public static final String Password = "Password";
 
-
     public MySQLiteHelper(Context context) {
         super(context,DATABASE_NAME, null, 1);
     }
-
-
-
 
     public long insertData(String firstName, String lastName, String emailID, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -35,7 +31,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         contentValues.put(EmailID,emailID);
         contentValues.put(Password,password);
         return db.insert(TABLE_NAME, null ,contentValues);
-
     }
 
     public Cursor getRecordByID(int id) {
@@ -43,7 +38,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper{
         Cursor res = db.rawQuery("select * from " + TABLE_NAME + " where " + ID + " = " + "_id" ,null);
         return res;
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase db) {

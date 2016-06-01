@@ -1,22 +1,21 @@
 package com.example.webonise.tagfind.models;
 
+import android.net.Uri;
+
 /**
  * Created by webonise on 23/5/16.
  */
 public class Data {
-    public static int length;
-    private String title;
-    private String tag;
-    private int imageId;
 
-    public Data(String title, String tag, int imageId) {
+    public String title;
+    public String tag;
+    public String image;
+    private Uri data;
+
+    public Data() {
         this.title = title;
         this.tag = tag;
-        this.imageId = imageId;
-    }
-
-    public Data(int position) {
-
+        this.image = image;
     }
 
     public String getTitle() {
@@ -35,15 +34,15 @@ public class Data {
         this.tag = tag;
     }
 
-    public int getImageId() {
-        return imageId;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public static Data get(int position) {
-        return null;
+    public Uri getData() {
+        return data;
     }
 }

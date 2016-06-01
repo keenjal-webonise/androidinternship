@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">tag&amp;Find</string>
     <string name="title_activity_add">AddActivity</string>
+    <string name="search_hint">search</string>
+    <string name="title_activity_search_result">SearchResultActivity</string>
+    <string name="title_activity_add_activity_result">AddActivityResult</string>
+    <string name="dialog_take_photo">Take Photo</string>
+    <string name="title_activity_description">DescriptionActivity</string>
 </resources>

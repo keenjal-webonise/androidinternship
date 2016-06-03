@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.example.webonise.tagfind.R;
 import com.example.webonise.tagfind.models.Data;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -78,8 +80,6 @@ public class AddActivity extends AppCompatActivity {
                 if (options[item].equals(getString(R.string.dialog_take_photo)))
                 {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    File f = new File(android.os.Environment.getExternalStorageDirectory(), "temp.jpg");
-                    intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));
                     startActivityForResult(intent, 1);
                 }
                 else if (options[item].equals("Choose from Gallery"))
@@ -101,7 +101,11 @@ public class AddActivity extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == 1)
             {
+                Bitmap image = (Bitmap) data.getExtras().get("data");
+                imageView.setImageBitmap(image);
                 File file = new File(Environment.getExternalStorageDirectory().toString());
+                imagePath = file.getAbsolutePath();
+
                 for (File temp : file.listFiles())
                 {
                     if (temp.getName().equals(""))
@@ -110,33 +114,26 @@ public class AddActivity extends AppCompatActivity {
                         break;
                     }
                 }
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                imageView.setVisibility(View.VISIBLE);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                imagePath = file.getAbsolutePath();
+                Log.i("",file.getAbsolutePath());
+                imageView.setImageBitmap(image);
+                options.inSampleSize =20;
+                File file1 = new File(Environment.getExternalStorageDirectory()+File.separator + System.currentTimeMillis()+ ".jpg");
+                file.delete();
                 try
                 {
-                    Bitmap bitmap;
-                    BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-                    bitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), bitmapOptions);
-                    imagePath = file.getAbsolutePath();
-                    Log.i("",file.getAbsolutePath());
-                    imageView.setImageBitmap(bitmap);
-                    String path = android.os.Environment.getExternalStorageDirectory() + File.separator + "Phoenix" + File.separator + "default";
-                   // String path = Environment.getExternalStorageDirectory().getPath() + "/camera/MyApp";
-                    file.delete();
-                    OutputStream outFile = null;
-                    File file1 = new File(path, String.valueOf(System.currentTimeMillis()) + ".jpg");
-
-                    try {
-                        outFile = new FileOutputStream(file1);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, outFile);
-                        outFile.flush();
-                        outFile.close();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
+                    file1.createNewFile();
+                    FileOutputStream fo = new FileOutputStream(file1);
+                    image.compress(Bitmap.CompressFormat.JPEG,50,bytes);
+                    fo.write(bytes.toByteArray());
+                    fo.flush();
+                    fo.close();
+                    imagePath = file1.getAbsolutePath();
+                }catch (IOException e)
+                {
                     e.printStackTrace();
                 }
             }else if (requestCode == 2) {
@@ -148,7 +145,6 @@ public class AddActivity extends AppCompatActivity {
                 int columnIndex = c.getColumnIndex(filePath[0]);
                 String picturePath = c.getString(columnIndex);
                 imagePath = picturePath;
-
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
                 Log.w("path of image from gallery......******************.........", picturePath + "");
@@ -185,7 +181,10 @@ public class AddActivity extends AppCompatActivity {
         }
         if (TextUtils.isEmpty(title))
         {
-            Toast.makeText(getApplicationContext(),"First FillUp the Data", Toast.LENGTH_LONG).show();
+
+            etTitle.setError("Required....");
+            etTitle.requestFocus();
+           // Toast.makeText(getApplicationContext(),"First FillUp the Data", Toast.LENGTH_LONG).show();
             return;
         }
 

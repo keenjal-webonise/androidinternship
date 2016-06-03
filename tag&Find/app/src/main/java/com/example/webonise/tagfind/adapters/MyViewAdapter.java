@@ -34,7 +34,7 @@ import java.util.List;
 public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHolder>{
 
     private List<Data> mListData;
-   private int position;
+    private int position;
     Data data;
 
 
@@ -75,6 +75,29 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
         return mListData!=null ? mListData.size() : 0;
     }
 
+    public void filter(String query)
+    {
+        if (query.isEmpty())
+        {
+            mListData.clear();
+            mListData.addAll(mListData);
+        }
+        else
+        {
+            ArrayList<Data> result = new ArrayList<>();
+            query = query.toLowerCase();
+            for (Data item : mListData)
+            {
+                if (item.tag.toLowerCase().contains(query) || item.title.toLowerCase().contains(query))
+                {
+                    result.add(item);
+                }
+            }
+            mListData.clear();
+            mListData.addAll(result);
+        }
+        notifyDataSetChanged();
+    }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;
         TextView tvTag;

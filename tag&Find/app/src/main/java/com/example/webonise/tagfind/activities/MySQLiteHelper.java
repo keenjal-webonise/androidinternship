@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    public static boolean getRecordByID;
+ //   public static boolean getRecordByID;
     private List<Data> mListData = null;
 
 
@@ -31,7 +31,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public MySQLiteHelper(Context context) {
         super(context,DATABASE_NAME, null,1);
-        this.mListData = mListData;
     }
 
     public long insertData(String image, String title, String tag)
@@ -43,14 +42,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(Tag,tag);
         return db.insert(TABLE_NAME,null,contentValues);
     }
-    public Cursor getRecordByID(int id)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res =db.rawQuery("select * from " + TABLE_NAME + " where " + ID + " = " + "_id " ,null);
-        if (res != null)
-            res.moveToFirst();
-        return res;
-    }
+//    public Cursor getRecordByID(int id)
+//    {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        Cursor res =db.rawQuery("select * from " + TABLE_NAME + " where " + ID + " = " + "_id " ,null);
+//        if (res != null)
+//            res.moveToFirst();
+//        return res;
+//    }
 
     public List<Data> getAllData() {
         List<Data> dataList = new ArrayList<>();
@@ -91,7 +90,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertData(Data data) {
-
-    }
+//    public void insertData(Data data) {
+//
+//    }
 }

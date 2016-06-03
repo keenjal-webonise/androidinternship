@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mySQLiteHelper = new MySQLiteHelper(MainActivity.this);
         Log.e("Insert:","Inserting....");
-        mySQLiteHelper.insertData(new Data());
+       // mySQLiteHelper.insertData(new Data());
         arryList = mySQLiteHelper.getAllData();
     }
 
@@ -53,8 +53,6 @@ public class MainActivity extends AppCompatActivity {
         Log.i("",arryList.size()+"");
         adapter = new MyViewAdapter(arryList, MainActivity.this);
         rvData.setAdapter(adapter);
-
-
     }
 
     @Override
@@ -69,26 +67,22 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                Log.i("onQueryTextSubmit",query);
+                return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                newText = newText.toLowerCase();
-                final List<Data> filteredList = new ArrayList<>();
-                for (int i =0; i < arryList.size(); i++)
+                Log.i("onQueryTextChange",newText);
+                if (newText.isEmpty())
                 {
-                    final String text = arryList.get(i).toString();
-                    if (text.contains(newText))
-                    {
-                        filteredList.add(arryList.get(i));
-                    }
+                    return true;
                 }
-               rvData.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                adapter = new MyViewAdapter(filteredList,MainActivity.this);
-                rvData.setAdapter(adapter);
-               adapter.notifyDataSetChanged();
-                return true;
+                else
+                {
+                    adapter.filter(newText);
+                    return false;
+                }
             }
         });
         return true;

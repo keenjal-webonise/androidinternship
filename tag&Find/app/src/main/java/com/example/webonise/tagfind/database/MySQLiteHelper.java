@@ -1,4 +1,4 @@
-package com.example.webonise.tagfind.activities;
+package com.example.webonise.tagfind.database;
 
 import android.content.ContentValues;
 import android.content.Context;

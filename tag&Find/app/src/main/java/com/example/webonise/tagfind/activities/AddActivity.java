@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,21 +24,19 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.webonise.tagfind.R;
-import com.example.webonise.tagfind.models.Data;
+import com.example.webonise.tagfind.database.MySQLiteHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 public class AddActivity extends AppCompatActivity {
 
-    MySQLiteHelper mydb;
-    EditText etTitle,etTag;
-    ImageView imageView;
-    Button btnTakePhoto,btnFromGallery,btncancle;
+    private MySQLiteHelper mydb;
+    private EditText etTitle,etTag;
+    private ImageView imageView;
+    private Button btnTakePhoto,btnFromGallery,btncancle;
     private String imagePath;
 
     @Override
@@ -69,10 +65,10 @@ public class AddActivity extends AppCompatActivity {
     }
     private void selectImage()
     {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = getResources().getStringArray(R.array.itemsArray);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AddActivity.this);
-        builder.setTitle("Add Photo!");
+        builder.setTitle(R.string.add_photo);
         builder.setItems(options, new DialogInterface.OnClickListener() {
 
             @Override
@@ -82,12 +78,12 @@ public class AddActivity extends AppCompatActivity {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, 1);
                 }
-                else if (options[item].equals("Choose from Gallery"))
+                else if (options[item].equals(getString(R.string.choose_from_Gallery)));
                 {
                     Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, 2);
                 }
-                else if (options[item].equals("Cancel")) {
+                 if (options[item].equals(getString(R.string.cancle))) {
                     dialog.dismiss();
                 }
             }
@@ -147,7 +143,7 @@ public class AddActivity extends AppCompatActivity {
                 imagePath = picturePath;
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path of image from gallery......******************.........", picturePath + "");
+                Log.i("path of image from gallery......******************.........", picturePath + "");
                 imageView.setImageBitmap(thumbnail);
             }
         }
@@ -193,14 +189,14 @@ public class AddActivity extends AppCompatActivity {
             long id  = mydb.insertData(imagePath,etTag.getText().toString(),etTitle.getText().toString());
             if (id != -1)
             {
-                Toast.makeText(AddActivity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddActivity.this,R. string.data_inserted, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
                 intent.putExtra("id",id);
                 startActivity(intent);
             }
             else
             {
-                Toast.makeText(AddActivity.this, "Data  not Inserted", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddActivity.this,R. string.data_not_inserted, Toast.LENGTH_LONG).show();
             }
         }
     }

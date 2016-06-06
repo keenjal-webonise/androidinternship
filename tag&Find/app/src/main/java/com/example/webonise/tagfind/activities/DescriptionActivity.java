@@ -18,8 +18,8 @@ import com.example.webonise.tagfind.utilities.Constants;
 
 public class DescriptionActivity extends AppCompatActivity {
 
-    TextView tvTitle,tvTag;
-    ImageView imageView;
+   private TextView tvTitle,tvTag;
+   private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

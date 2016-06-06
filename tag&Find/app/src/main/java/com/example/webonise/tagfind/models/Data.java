@@ -10,7 +10,8 @@ public class Data {
     public String title;
     public String tag;
     public String image;
-    private Uri data;
+   // private Uri data;
+
 
     public Data() {
         this.title = title;
@@ -42,7 +43,7 @@ public class Data {
         this.image = image;
     }
 
-    public Uri getData() {
-        return data;
-    }
+ //   public Uri getData() {
+      //  return data;
+   // }
 }

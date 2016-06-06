@@ -15,15 +15,15 @@ import android.view.MenuItem;
 
 import com.example.webonise.tagfind.R;
 import com.example.webonise.tagfind.adapters.MyViewAdapter;
+import com.example.webonise.tagfind.database.MySQLiteHelper;
 import com.example.webonise.tagfind.models.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView rvData;
-    MyViewAdapter adapter;
+    private MyViewAdapter adapter;
     private MySQLiteHelper mySQLiteHelper;
     private List<Data> arryList;
 

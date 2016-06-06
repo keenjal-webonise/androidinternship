@@ -1,27 +1,19 @@
 package com.example.webonise.tagfind.adapters;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Parcelable;
-import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.webonise.tagfind.R;
 import com.example.webonise.tagfind.activities.DescriptionActivity;
 import com.example.webonise.tagfind.activities.MainActivity;
-import com.example.webonise.tagfind.activities.MySQLiteHelper;
 import com.example.webonise.tagfind.models.Data;
 import com.example.webonise.tagfind.utilities.Constants;
 
@@ -34,8 +26,8 @@ import java.util.List;
 public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHolder>{
 
     private List<Data> mListData;
-    private int position;
-    Data data;
+//    private int position;
+//    Data data;
 
 
     public MyViewAdapter(List<Data> dataList, MainActivity mainActivity) {

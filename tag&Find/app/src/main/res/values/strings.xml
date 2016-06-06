@@ -6,4 +6,14 @@
     <string name="title_activity_add_activity_result">AddActivityResult</string>
     <string name="dialog_take_photo">Take Photo</string>
     <string name="title_activity_description">DescriptionActivity</string>
+    <string name="choose_from_Gallery">Choose from Gallery</string>
+    <string name="cancle">Cancle</string>
+    <string name="data_inserted">Data Inserted</string>
+    <string name="data_not_inserted">Data Not Inserted</string>
+    <string name="add_photo">Add photo!</string>
+    <string-array name="itemsArray">
+        <item>Take Photo</item>
+        <item>Choose from Gallery</item>
+        <item>Cancel</item>
+    </string-array>
 </resources>

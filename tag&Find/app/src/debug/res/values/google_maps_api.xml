@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=3A:86:A2:F0:3E:6C:0D:09:68:BD:1F:25:61:51:55:C1:E7:95:4C:FD%3Bcom.example.webonise.tagfind.activities
+
+    You can also add your credentials to an existing key, using this line:
+    3A:86:A2:F0:3E:6C:0D:09:68:BD:1F:25:61:51:55:C1:E7:95:4C:FD;com.example.webonise.tagfind.activities
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        YOUR_KEY_HERE
+    </string>
+</resources>

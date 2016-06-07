@@ -26,9 +26,6 @@ import java.util.List;
 public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHolder>{
 
     private List<Data> mListData;
-//    private int position;
-//    Data data;
-
 
     public MyViewAdapter(List<Data> dataList, MainActivity mainActivity) {
         this.mListData = dataList;

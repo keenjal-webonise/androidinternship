@@ -38,6 +38,7 @@ public class AddActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnTakePhoto,btnFromGallery,btncancle;
     private String imagePath;
+   // public static final int CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE = 1777;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +64,10 @@ public class AddActivity extends AppCompatActivity {
 
         addData();
     }
+
     private void selectImage()
     {
-        final CharSequence[] options = getResources().getStringArray(R.array.itemsArray);
+        final CharSequence[] options =getResources().getStringArray(R.array.itemsArray);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(AddActivity.this);
         builder.setTitle(R.string.add_photo);
@@ -83,7 +85,7 @@ public class AddActivity extends AppCompatActivity {
                     Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(intent, 2);
                 }
-                 if (options[item].equals(getString(R.string.cancle))) {
+                if (options[item].equals(getString(R.string.cancle))) {
                     dialog.dismiss();
                 }
             }
@@ -143,7 +145,7 @@ public class AddActivity extends AppCompatActivity {
                 imagePath = picturePath;
                 c.close();
                 Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.i("path of image from gallery......******************.........", picturePath + "");
+                Log.w("path of image from gallery......******************.........", picturePath + "");
                 imageView.setImageBitmap(thumbnail);
             }
         }
@@ -180,7 +182,6 @@ public class AddActivity extends AppCompatActivity {
 
             etTitle.setError("Required....");
             etTitle.requestFocus();
-           // Toast.makeText(getApplicationContext(),"First FillUp the Data", Toast.LENGTH_LONG).show();
             return;
         }
 

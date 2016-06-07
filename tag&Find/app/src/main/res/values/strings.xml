@@ -11,6 +11,7 @@
     <string name="data_inserted">Data Inserted</string>
     <string name="data_not_inserted">Data Not Inserted</string>
     <string name="add_photo">Add photo!</string>
+    <string name="title">Title</string>
     <string-array name="itemsArray">
         <item>Take Photo</item>
         <item>Choose from Gallery</item>

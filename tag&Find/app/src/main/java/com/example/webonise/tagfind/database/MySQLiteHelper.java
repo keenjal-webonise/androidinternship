@@ -18,10 +18,7 @@ import java.util.List;
  */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
- //   public static boolean getRecordByID;
     private List<Data> mListData = null;
-
-
     public static final String DATABASE_NAME  = "FinderImage.db";
     public static final String TABLE_NAME = "Image_table";
     public static final String ID = "_id";
@@ -42,15 +39,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(Tag,tag);
         return db.insert(TABLE_NAME,null,contentValues);
     }
-//    public Cursor getRecordByID(int id)
-//    {
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        Cursor res =db.rawQuery("select * from " + TABLE_NAME + " where " + ID + " = " + "_id " ,null);
-//        if (res != null)
-//            res.moveToFirst();
-//        return res;
-//    }
-
     public List<Data> getAllData() {
         List<Data> dataList = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + TABLE_NAME;
@@ -77,11 +65,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         }
         return dataList;
     }
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table " + TABLE_NAME + "(" + ID + " INTEGER PRIMARY KEY, " + Image + " TEXT, " + Title + " TEXT, " + Tag + " TEXT)");
-
     }
 
     @Override
@@ -89,8 +75,4 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     db.execSQL("DROP TABLE IF EXIETS" + TABLE_NAME);
         onCreate(db);
     }
-
-//    public void insertData(Data data) {
-//
-//    }
 }

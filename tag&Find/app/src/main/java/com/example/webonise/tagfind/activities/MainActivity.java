@@ -1,6 +1,7 @@
 package com.example.webonise.tagfind.activities;
 
 import android.app.SearchManager;
+import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.webonise.tagfind.R;
 import com.example.webonise.tagfind.adapters.MyViewAdapter;
@@ -34,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mySQLiteHelper = new MySQLiteHelper(MainActivity.this);
         Log.e("Insert:","Inserting....");
-       // mySQLiteHelper.insertData(new Data());
         arryList = mySQLiteHelper.getAllData();
     }
 
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
+        searchView.setSearchableInfo(info);
         searchView.setQueryHint(getString(R.string.search_hint));
         searchView.setDrawingCacheBackgroundColor(getResources().getColor(R.color.black));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

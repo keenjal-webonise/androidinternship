@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,6 @@ import com.example.webonise.tagfind.utilities.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by webonise on 23/5/16.
- */
 public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHolder>{
 
     private List<Data> mListData;
@@ -33,7 +31,7 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_layout,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_tag_find,null);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return  viewHolder;
 
@@ -86,6 +84,7 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
             mListData.addAll(result);
         }
         notifyDataSetChanged();
+        Log.e("dataset changed", "dataset changed");
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;

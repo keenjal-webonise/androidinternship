@@ -38,8 +38,9 @@ public class AddActivity extends AppCompatActivity {
     private ImageView imageView;
     private Button btnTakePhoto,btnFromGallery,btncancle;
     private String imagePath;
-   // public static final int CAPTURE_IMAGE_FULLSIZE_ACTIVITY_REQUEST_CODE = 1777;
 
+    static final int TAKE_PHOTO = 0;
+    static final int CHOOSE_FROM_GALLERY = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,17 +76,20 @@ public class AddActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                if (options[item].equals(getString(R.string.dialog_take_photo)))
+                //if (options[item].equals(getString(R.string.dialog_take_photo)))
+                if(item ==TAKE_PHOTO)
                 {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                    startActivityForResult(intent, 1);
+                    startActivityForResult(intent,TAKE_PHOTO);
                 }
-                else if (options[item].equals(getString(R.string.choose_from_Gallery)));
+                else  if(item ==CHOOSE_FROM_GALLERY)
                 {
                     Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(intent, 2);
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);
+                    startActivityForResult(intent, CHOOSE_FROM_GALLERY);
                 }
-                if (options[item].equals(getString(R.string.cancle))) {
+                else {
                     dialog.dismiss();
                 }
             }
@@ -97,7 +101,7 @@ public class AddActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == 1)
+            if (requestCode == TAKE_PHOTO)
             {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 imageView.setImageBitmap(image);
@@ -114,13 +118,12 @@ public class AddActivity extends AppCompatActivity {
                 }
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 imageView.setVisibility(View.VISIBLE);
-                BitmapFactory.Options options = new BitmapFactory.Options();
+               // BitmapFactory.Options options = new BitmapFactory.Options();
                 imagePath = file.getAbsolutePath();
                 Log.i("",file.getAbsolutePath());
                 imageView.setImageBitmap(image);
-                options.inSampleSize =20;
+                //options.inSampleSize =20;
                 File file1 = new File(Environment.getExternalStorageDirectory()+File.separator + System.currentTimeMillis()+ ".jpg");
-                file.delete();
                 try
                 {
                     file1.createNewFile();
@@ -134,19 +137,20 @@ public class AddActivity extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-            }else if (requestCode == 2) {
+            }else if (requestCode == CHOOSE_FROM_GALLERY) {
 
                 Uri selectedImage = data.getData();
+
                 String[] filePath = {MediaStore.Images.Media.DATA};
-                Cursor c = getContentResolver().query(selectedImage, filePath, null, null, null);
-                c.moveToFirst();
-                int columnIndex = c.getColumnIndex(filePath[0]);
-                String picturePath = c.getString(columnIndex);
+                Cursor cursor = getContentResolver().query(selectedImage, filePath, null, null, null);
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndex(filePath[0]);
+                String picturePath = cursor.getString(columnIndex);
                 imagePath = picturePath;
-                c.close();
-                Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
-                Log.w("path of image from gallery......******************.........", picturePath + "");
-                imageView.setImageBitmap(thumbnail);
+                cursor.close();
+               Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                Log.i("path of image from gallery......******************.........", picturePath + "");
+                imageView.setImageBitmap(bitmap);
             }
         }
     }
@@ -180,7 +184,7 @@ public class AddActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(title))
         {
 
-            etTitle.setError("Required....");
+           etTitle.setError("Required....");
             etTitle.requestFocus();
             return;
         }
@@ -192,7 +196,6 @@ public class AddActivity extends AppCompatActivity {
             {
                 Toast.makeText(AddActivity.this,R. string.data_inserted, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(AddActivity.this, MainActivity.class);
-                intent.putExtra("id",id);
                 startActivity(intent);
             }
             else

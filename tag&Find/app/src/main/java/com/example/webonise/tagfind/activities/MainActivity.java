@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         rvData.setLayoutManager(linearLayoutManager);
         rvData.setItemAnimator(new DefaultItemAnimator());
         Log.i("",arryList.size()+"");
-        adapter = new MyViewAdapter(arryList, MainActivity.this);
+        adapter = new MyViewAdapter(arryList,this);
         rvData.setAdapter(adapter);
     }
 

@@ -76,18 +76,15 @@ public class AddActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                //if (options[item].equals(getString(R.string.dialog_take_photo)))
                 if(item ==TAKE_PHOTO)
                 {
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent,TAKE_PHOTO);
                 }
-                else  if(item ==CHOOSE_FROM_GALLERY)
+                else  if(item == CHOOSE_FROM_GALLERY)
                 {
                     Intent intent = new   Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    intent.setType("image/*");
-                    intent.setAction(Intent.ACTION_GET_CONTENT);
-                    startActivityForResult(intent, CHOOSE_FROM_GALLERY);
+                    startActivityForResult(intent,CHOOSE_FROM_GALLERY);
                 }
                 else {
                     dialog.dismiss();
@@ -118,11 +115,11 @@ public class AddActivity extends AppCompatActivity {
                 }
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 imageView.setVisibility(View.VISIBLE);
-               // BitmapFactory.Options options = new BitmapFactory.Options();
+                BitmapFactory.Options options = new BitmapFactory.Options();
                 imagePath = file.getAbsolutePath();
                 Log.i("",file.getAbsolutePath());
                 imageView.setImageBitmap(image);
-                //options.inSampleSize =20;
+                options.inSampleSize =20;
                 File file1 = new File(Environment.getExternalStorageDirectory()+File.separator + System.currentTimeMillis()+ ".jpg");
                 try
                 {
@@ -137,10 +134,8 @@ public class AddActivity extends AppCompatActivity {
                 {
                     e.printStackTrace();
                 }
-            }else if (requestCode == CHOOSE_FROM_GALLERY) {
-
+            }else if (requestCode ==CHOOSE_FROM_GALLERY) {
                 Uri selectedImage = data.getData();
-
                 String[] filePath = {MediaStore.Images.Media.DATA};
                 Cursor cursor = getContentResolver().query(selectedImage, filePath, null, null, null);
                 cursor.moveToFirst();
@@ -149,8 +144,8 @@ public class AddActivity extends AppCompatActivity {
                 imagePath = picturePath;
                 cursor.close();
                Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
-                Log.i("path of image from gallery......******************.........", picturePath + "");
-                imageView.setImageBitmap(bitmap);
+                Log.i("path of image from gallery......***********.........", picturePath + "");
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1280, 720, false));
             }
         }
     }

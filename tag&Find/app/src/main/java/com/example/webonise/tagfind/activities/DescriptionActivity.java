@@ -1,62 +1,28 @@
 package com.example.webonise.tagfind.activities;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.location.Criteria;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.webonise.tagfind.R;
-import com.example.webonise.tagfind.models.Data;
 import com.example.webonise.tagfind.utilities.Constants;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 public class DescriptionActivity extends AppCompatActivity {
 
     private TextView tvTag;
     private ImageView imageView;
     private Button btnGetDirection;
-    Float Latitude, Longitude ,title;
-
+    private Float latitude, longitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +49,7 @@ public class DescriptionActivity extends AppCompatActivity {
         final String imagePath = intent.getStringExtra(Constants.BUNDLE_KEY_IMAGE);
 
         markGeoTagImage(imagePath);
-        if (Longitude != null && Latitude != null) {
+        if (longitude != null && latitude != null) {
             btnGetDirection.setVisibility(View.VISIBLE);
         } else {
             btnGetDirection.setVisibility(View.INVISIBLE);
@@ -92,12 +58,8 @@ public class DescriptionActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//                Location loc = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//                        double logi = loc.getLongitude();
-//                        double lat = loc.getLatitude();
-                    String address ="http://maps.google.com/maps?q="+ Latitude +"," + Longitude +"("+ title + ")&iwloc=A&hl=es";
-                    Intent maps = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + address));
+                    String address ="http://maps.google.com/maps?q="+ latitude +"," + longitude +"";
+                    Intent maps = new Intent(Intent.ACTION_VIEW, Uri.parse(address));
                     startActivity(maps);
                 } catch (Exception e) {
                     Log.e("", e.toString());
@@ -141,15 +103,15 @@ public class DescriptionActivity extends AppCompatActivity {
                     && (LONGITUDE_REF != null)) {
 
                 if (LATITUDE_REF.equals("N")) {
-                    Latitude = convertToDegree(LATITUDE);
+                    latitude = convertToDegree(LATITUDE);
                 } else {
-                    Latitude = 0 - convertToDegree(LATITUDE);
+                    latitude = 0 - convertToDegree(LATITUDE);
                 }
 
                 if (LONGITUDE_REF.equals("E")) {
-                    Longitude = convertToDegree(LONGITUDE);
+                    longitude = convertToDegree(LONGITUDE);
                 } else {
-                    Longitude = 0 - convertToDegree(LONGITUDE);
+                    longitude = 0 - convertToDegree(LONGITUDE);
                 }
 
             }
@@ -184,17 +146,17 @@ public class DescriptionActivity extends AppCompatActivity {
 
     @Override
     public String toString() {
-        return (String.valueOf(Latitude)
+        return (String.valueOf(latitude)
                 + ", "
-                + String.valueOf(Longitude));
+                + String.valueOf(longitude));
     }
 
     public int getLatitudeE6() {
-        return (int) (Latitude * 1000000);
+        return (int) (latitude * 1000000);
     }
 
     public int getLongitudeE6() {
-        return (int) (Longitude * 1000000);
+        return (int) (longitude * 1000000);
     }
 }
 

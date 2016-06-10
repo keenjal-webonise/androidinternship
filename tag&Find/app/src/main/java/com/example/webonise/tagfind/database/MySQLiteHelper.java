@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.example.webonise.tagfind.models.Data;
@@ -13,12 +12,9 @@ import com.example.webonise.tagfind.models.Data;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by webonise on 24/5/16.
- */
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    private List<Data> mListData = null;
+   // private List<Data> mListData = null;
     public static final String DATABASE_NAME  = "FinderImage.db";
     public static final String TABLE_NAME = "Image_table";
     public static final String ID = "_id";

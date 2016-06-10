@@ -39,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+
         ImageLoaderConfiguration.Builder config = new ImageLoaderConfiguration.Builder(this);
         config.threadPriority(Thread.NORM_PRIORITY - 2);
         config.denyCacheImageMultipleSizesInMemory();
@@ -54,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
         mySQLiteHelper = new MySQLiteHelper(MainActivity.this);
         Log.e("Insert:","Inserting....");
         arryList = mySQLiteHelper.getAllData();
+
+
+
+
     }
 
     @Override
@@ -83,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
         searchView.setSearchableInfo(info);
         searchView.setQueryHint(getString(R.string.search_hint));
-        searchView.setDrawingCacheBackgroundColor(getResources().getColor(R.color.black));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override

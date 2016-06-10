@@ -109,7 +109,6 @@ public class DescriptionActivity extends AppCompatActivity {
                 } else {
                     latitude = 0 - convertToDegree(LATITUDE);
                 }
-
                 if (LONGITUDE_REF.equals("E")) {
                     longitude = convertToDegree(LONGITUDE);
                 } else {

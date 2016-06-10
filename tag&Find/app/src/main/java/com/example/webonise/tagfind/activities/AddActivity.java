@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -98,6 +99,9 @@ public class AddActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
+
+            int deviceWidth = getDeviceWidth();
+
             if (requestCode == TAKE_PHOTO)
             {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
@@ -119,6 +123,7 @@ public class AddActivity extends AppCompatActivity {
                 imagePath = file.getAbsolutePath();
                 Log.i("",file.getAbsolutePath());
                 imageView.setImageBitmap(image);
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(image,deviceWidth,deviceWidth,false));
                 options.inSampleSize =20;
                 File file1 = new File(Environment.getExternalStorageDirectory()+File.separator + System.currentTimeMillis()+ ".jpg");
                 try
@@ -143,9 +148,9 @@ public class AddActivity extends AppCompatActivity {
                 String picturePath = cursor.getString(columnIndex);
                 imagePath = picturePath;
                 cursor.close();
-               Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+                Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
                 Log.i("path of image from gallery......***********.........", picturePath + "");
-                imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 1280, 720, false));
+                imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, deviceWidth,deviceWidth,false));
             }
         }
     }
@@ -198,5 +203,10 @@ public class AddActivity extends AppCompatActivity {
                 Toast.makeText(AddActivity.this,R. string.data_not_inserted, Toast.LENGTH_LONG).show();
             }
         }
+    }
+    private int getDeviceWidth() {
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        return displaymetrics.widthPixels;
     }
 }

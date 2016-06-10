@@ -17,6 +17,10 @@ import com.example.webonise.tagfind.activities.DescriptionActivity;
 import com.example.webonise.tagfind.activities.MainActivity;
 import com.example.webonise.tagfind.models.Data;
 import com.example.webonise.tagfind.utilities.Constants;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,8 +46,12 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
         if (data != null) {
             holder.tvTag.setText(data.getTag());
             holder.tvTitle.setText(data.getTitle());
-            Bitmap thumbnail = (BitmapFactory.decodeFile(data.getImage()));
-            holder.imageView.setImageBitmap(thumbnail);
+
+            ImageLoader.getInstance().displayImage("file://" + data.getImage(), holder.imageView);
+
+            Log.d("&&&&&&&&&&&&&&&", data.getImage());
+
+
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -6,6 +6,5 @@
         android:id="@+id/action_save"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/download11"
-        android:title="Add New Item"/>
+        android:title="Save"/>
 </menu>

@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class DescriptionActivity extends AppCompatActivity {
 
-    private TextView tvTag;
+    private TextView tvtag;
     private ImageView imageView;
     private Button btnGetDirection;
     private Float latitude, longitude;
@@ -41,7 +41,7 @@ public class DescriptionActivity extends AppCompatActivity {
             }
         });
 
-        tvTag = (TextView) findViewById(R.id.tvTag);
+        tvtag = (TextView) findViewById(R.id.tvTag);
         imageView = (ImageView) findViewById(R.id.imageView);
         btnGetDirection = (Button) findViewById(R.id.btnGetDirection);
 
@@ -69,11 +69,9 @@ public class DescriptionActivity extends AppCompatActivity {
                 }
                     }
                 });
-        tvTag.setText(data1);
+        tvtag.setText(data1);
         try {
             ImageLoader.getInstance().displayImage("file://" + imagePath, imageView);
-//            imageView.setImageBitmap(BitmapFactory.decodeFile(imagePath));
-
         }catch (OutOfMemoryError e)
         {
             e.printStackTrace();

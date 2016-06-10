@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_action, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         SearchableInfo info = searchManager.getSearchableInfo(getComponentName());
@@ -88,21 +88,25 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.i("onQueryTextSubmit",query);
-                return true;
+                Log.i("@@@", "onQueryTextSubmit -----" + query);
+                adapter.filter(query);
+                return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.i("onQueryTextChange",newText);
+                Log.i("@@@","onQueryTextChange -----" + newText);
                 if (newText.isEmpty())
                 {
+                    arryList = mySQLiteHelper.getAllData();
+                    adapter = new MyViewAdapter(arryList,MainActivity.this);
+                    rvData.setAdapter(adapter);
                     return true;
                 }
                 else
                 {
                     adapter.filter(newText);
-                    return false;
+                    return true;
                 }
             }
         });

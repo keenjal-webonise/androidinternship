@@ -4,7 +4,7 @@
 
         <!-- Search / will display always -->
         <item android:id="@+id/action_search"
-            android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
+            android:icon="@drawable/ic_search_api_holo_dark"
             android:title="search"
             app:showAsAction="collapseActionView|ifRoom"
             app:actionViewClass="android.support.v7.widget.SearchView"/>
@@ -13,9 +13,6 @@
         android:id="@+id/action_add"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:icon="@drawable/download2"
+        android:icon="@drawable/plus"
         android:title="Add New Item"/>
-
-
-
 </menu>

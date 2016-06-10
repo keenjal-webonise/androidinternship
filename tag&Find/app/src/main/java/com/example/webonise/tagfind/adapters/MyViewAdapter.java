@@ -51,7 +51,6 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
 
             Log.d("&&&&&&&&&&&&&&&", data.getImage());
 
-
             holder.cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -92,7 +91,6 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
             mListData.addAll(result);
         }
         notifyDataSetChanged();
-        Log.e("dataset changed", "dataset changed");
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         CardView cardView;

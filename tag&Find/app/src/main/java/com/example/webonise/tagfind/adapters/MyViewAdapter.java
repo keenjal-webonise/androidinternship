@@ -29,19 +29,30 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
 
     private List<Data> mListData;
 
+
+    // Provide a suitable constructor (depends on the kind of dataset)
     public MyViewAdapter(List<Data> dataList, MainActivity mainActivity) {
         this.mListData = dataList;
     }
 
+
+    // Create new views (invoked by the layout manager)
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        // set the view's size, margins, paddings and layout parameters
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_tag_find,null);
         MyViewHolder viewHolder = new MyViewHolder(view);
         return  viewHolder;
 
     }
+
+    // Replace the contents of a view
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
+
+        // - get element from your dataset at this position
+        // - replace the contents of the view with that element
         final Data data = mListData.get(position);
         if (data != null) {
             holder.tvTag.setText(data.getTag());
@@ -64,6 +75,8 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
             });
         }
     }
+
+    // Return the size of your dataset
     @Override
     public int getItemCount() {
         return mListData!=null ? mListData.size() : 0;
@@ -92,11 +105,18 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
         }
         notifyDataSetChanged();
     }
+
+    // Provide a reference to the views for each data item
+    // Complex data items may need more than one view per item, and
+    // you provide access to all the views for a data item in a view holder
+
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        CardView cardView;
-        TextView tvTag;
-        TextView tvTitle;
-        ImageView imageView;
+
+        // each data item is just a string in this case
+        public CardView cardView;
+        public TextView tvTag;
+        public TextView tvTitle;
+        public ImageView imageView;
 
         public MyViewHolder(View v)
         {

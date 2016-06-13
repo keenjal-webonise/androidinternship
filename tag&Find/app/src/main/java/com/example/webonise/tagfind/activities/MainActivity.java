@@ -59,10 +59,6 @@ public class MainActivity extends AppCompatActivity {
         mySQLiteHelper = new MySQLiteHelper(MainActivity.this);
         Log.e("Insert:","Inserting....");
         arryList = mySQLiteHelper.getAllData();
-
-
-
-
     }
 
     @Override
@@ -73,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void initializeRecyclerView() {
         rvData = (RecyclerView) findViewById(R.id.rvData);
+
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
         rvData.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

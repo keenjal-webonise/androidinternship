@@ -107,6 +107,7 @@ public class AddActivity extends AppCompatActivity {
                 Bitmap image = (Bitmap) data.getExtras().get("data");
                 imageView.setImageBitmap(image);
                 File file = new File(Environment.getExternalStorageDirectory().toString());
+                //Returns a new file constructed using the absolute path of this file.
                 imagePath = file.getAbsolutePath();
 
                 for (File temp : file.listFiles())
@@ -119,6 +120,10 @@ public class AddActivity extends AppCompatActivity {
                 }
                 ByteArrayOutputStream bytes = new ByteArrayOutputStream();
                 imageView.setVisibility(View.VISIBLE);
+                /**
+                 * Create a default Options object, which if left unchanged will give
+                 * the same result from the decoder as if null were passed.
+                 */
                 BitmapFactory.Options options = new BitmapFactory.Options();
                 imagePath = file.getAbsolutePath();
                 Log.i("",file.getAbsolutePath());
@@ -142,7 +147,9 @@ public class AddActivity extends AppCompatActivity {
             }else if (requestCode ==CHOOSE_FROM_GALLERY) {
                 Uri selectedImage = data.getData();
                 String[] filePath = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getContentResolver().query(selectedImage, filePath, null, null, null);
+                // create Cursor in order to parse our sqlite results
+                Cursor cursor = getContentResolver().query(selectedImage, filePath, null, null, null); //3 & 4 arg are selection criteria and 5 are order
+                // move cursor to first row
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndex(filePath[0]);
                 String picturePath = cursor.getString(columnIndex);

@@ -23,7 +23,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String Tag = "Tag";
 
     public MySQLiteHelper(Context context) {
-        super(context,DATABASE_NAME, null,1);
+        super(context,DATABASE_NAME, null,1);//      //3rd argument to be passed is CursorFactory instance
     }
 
     public long insertData(String image, String title, String tag)
@@ -33,7 +33,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         contentValues.put(Image, image);
         contentValues.put(Title,title);
         contentValues.put(Tag,tag);
-        return db.insert(TABLE_NAME,null,contentValues);
+        return db.insert(TABLE_NAME,null,contentValues);    //2nd argument is String containing nullColumnHack
     }
     public List<Data> getAllData() {
         List<Data> dataList = new ArrayList<>();

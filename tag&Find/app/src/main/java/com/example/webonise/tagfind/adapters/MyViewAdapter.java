@@ -75,6 +75,18 @@ public class MyViewAdapter extends RecyclerView.Adapter<MyViewAdapter.MyViewHold
             });
         }
     }
+//
+//    web = (FragmentWebview) manager.findFragmentById(R.id.fragment2);
+//    if (web!= null && web.isVisible())
+//    {
+//        web.setNewPage(i);
+//    }
+//    else
+//    {
+//        Intent intent = new Intent(this , FragmentSupport.class);
+//        intent.putExtra("index", i);
+//        startActivity(intent);
+//    }
 
     // Return the size of your dataset
     @Override

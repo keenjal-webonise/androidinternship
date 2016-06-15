@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void call() {
         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("7383888443"));
-        intent.setData(Uri.parse("tel:7383888443"));
         try{
             startActivity(intent);
         }
